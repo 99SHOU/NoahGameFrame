@@ -61,9 +61,11 @@ ${SolutionDir}/Dependencies/protobuf/src/
 ${SolutionDir}/Dependencies/libevent/
 ${SolutionDir}/Dependencies/libevent/include/
 ${SolutionDir}/Dependencies/libevent/compat/
-${SolutionDir}/Dependencies/lua/
+${SolutionDir}/Dependencies/lua/src/
 ${SolutionDir}/Dependencies/asio/
 ${SolutionDir}/Dependencies/websocketpp/
+${SolutionDir}/Dependencies/LuaIntf/
+${SolutionDir}/Dependencies/LuaIntf/impl/
 )
 
 #message("Build Type:"${CMAKE_BUILD_TYPE} ${CMAKE_CXX_FLAGS})
