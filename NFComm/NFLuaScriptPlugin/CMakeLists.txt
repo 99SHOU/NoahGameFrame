@@ -2,8 +2,8 @@ set(ProjectName "NFLuaScriptPlugin")
 file(GLOB NFLuaScriptPlugin_ROOT_Cpp *.cpp)
 file(GLOB NFLuaScriptPlugin_ROOT_CC *.cc)
 file(GLOB NFLuaScriptPlugin_ROOT_Hpp *.h)
-file(GLOB LUA_ROOT_C ${SolutionDir}/Dependencies/lua/src*.c)
-file(GLOB LUA_ROOT_H ${SolutionDir}/Dependencies/lua/src*.h)
+file(GLOB LUA_ROOT_C ${SolutionDir}/Dependencies/lua/src/*.c)
+file(GLOB LUA_ROOT_H ${SolutionDir}/Dependencies/lua/src/*.h)
 
 add_library(NFLuaScriptPlugin SHARED
 	${NFLuaScriptPlugin_ROOT_Cpp}

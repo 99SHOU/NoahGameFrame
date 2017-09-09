@@ -23,7 +23,7 @@
 		<Plugin Name="NFMailPlugin" />
 		<Plugin Name="NFHeroPlugin" />
 		<Plugin Name="NFFriendPlugin" />
-		
+		<Plugin Name="NFLuaScriptPlugin" />
     	<ConfigPath Name="../" />		
 	</GameServer>
 
