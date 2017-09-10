@@ -15,6 +15,9 @@ function TestModule.Init()
 	local pElementInfoModule = pPluginManager:FindElementInfoModule("NFCElementInfoModule");
 	io.write("Addr of NFCElementInfoModule " .. tostring(pElementInfoModule) .. "\n");
 
+	local pEventModule = pPluginManager:FindEventModule("NFCEventModule");
+	io.write("Addr of NFCEventModule " .. tostring(pEventModule) .. "\n")
+
 	pLuaScriptModule:AddClassCallBack("Player", "TestModule.OnClassCommonEvent");
 end
 
@@ -24,7 +27,7 @@ function TestModule.AfterInit()
 	local pKernelModule = pPluginManager:FindKernelModule("NFCKernelModule");
 	pKernelModule:CreateScene(1);
 
-	local pObject = pKernelModule:CreateObject(NFGUID(), 1, 0, "Player", "", NFCDataList());
+	local pObject = pKernelModule:CreateObject(NFGUID(), 1, 0, "Player", "", NFDataList());
 	local OID = pObject:Self();
 
 	--property callback
@@ -33,7 +36,7 @@ function TestModule.AfterInit()
 
 	--record callback
 	pLuaScriptModule:AddRecordCallBack(OID, "TaskList", "TestModule.TaskListCallBack");
-	local varTask =  NFCDataList();
+	local varTask =  NFDataList();
 	varTask:AddString("Task_From_Lua");
 	varTask:AddInt(1);
 	varTask:AddInt(1);
@@ -45,7 +48,7 @@ function TestModule.AfterInit()
 	--event callback
 	pLuaScriptModule:AddEventCallBack(OID, 1, "TestModule.EventCallBack");
 
-	local obj = NFCDataList();
+	local obj = NFDataList();
 	obj:AddInt(21);
 	obj:AddFloat(22.5);
 	obj:AddString("str23");
@@ -56,7 +59,11 @@ function TestModule.AfterInit()
 
 	obj:AddObject(ident);
 
-	pKernelModule:DoEvent(OID, 1, obj);
+	local pEventModule = pPluginManager:FindEventModule("NFCEventModule");
+	if pEventModule == nil then
+		io.write("hello!!!")
+	end
+	pEventModule:DoEvent(OID, 1, obj);
 
 	--Hearback
 	pLuaScriptModule:AddHeartBeat(OID, "strHeartBeatName", "TestModule.HearCallBack", 2, 55555);
@@ -66,7 +73,7 @@ function TestModule.MaxPropertyCallBack(self, propertyName, oldVar, newVar)
 	local nOldVar = oldVar:GetInt();
 	local nNewVar = newVar:GetInt();
 
-	local obj = NFCDataList();
+	local obj = NFDataList();
 	io.write("Hello Lua MaxPropertyCallBack oldVar:" .. tostring(nOldVar) .. " newVar:" .. tostring(nNewVar) .. "\n");
 end
 
@@ -103,7 +110,7 @@ function TestModule.EventCallBack(self, nEventID, arg)
 end
 
 function TestModule.HearCallBack(self, strHeartBeat, fTime, nCount)
-	local obj = NFCDataList();
+	local obj = NFDataList();
 	--local s = os.clock()
 	local s = pPluginManager:GetNowTime();
 	if oldTime == nil then

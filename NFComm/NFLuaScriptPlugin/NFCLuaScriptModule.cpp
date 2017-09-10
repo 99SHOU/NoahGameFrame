@@ -271,6 +271,7 @@ bool NFCLuaScriptModule::Regisger()
     .addFunction("FindKernelModule", &NFIPluginManager::FindModule<NFIKernelModule>)
     .addFunction("FindLogicClassModule", &NFIPluginManager::FindModule<NFIClassModule>)
     .addFunction("FindElementInfoModule", &NFIPluginManager::FindModule<NFIElementModule>)
+    .addFunction("FindEventModule", &NFIPluginManager::FindModule<NFIEventModule>)
 	.addFunction("GetNowTime", &NFIPluginManager::GetNowTime)
     .endClass();
 
@@ -286,7 +287,7 @@ bool NFCLuaScriptModule::Regisger()
     .addFunction("CreateScene", &NFIKernelModule::CreateScene)
     .addFunction("CreateObject", &NFIKernelModule::CreateObject)
     .addFunction("DoEvent", (bool (NFIKernelModule::*)(const NFGUID&, const int, const NFDataList&))&NFIKernelModule::DoEvent)
-    //.addFunction("ExistContainer", &NFIKernelModule::ExistContainer)
+    .addFunction("ExistScene", &NFIKernelModule::ExistScene)
     .addFunction("SetPropertyInt", &NFIKernelModule::SetPropertyInt)
     .addFunction("SetPropertyFloat", &NFIKernelModule::SetPropertyFloat)
     .addFunction("SetPropertyString", &NFIKernelModule::SetPropertyString)
@@ -357,6 +358,10 @@ bool NFCLuaScriptModule::Regisger()
     .addFunction("AddHeartBeat", &NFCLuaScriptModule::AddHeartBeat)
     .addFunction("AddRow", &NFCLuaScriptModule::AddRow)
     .addFunction("AddClassCallBack", &NFCLuaScriptModule::AddClassCallBack)
+    .endClass();
+
+    LuaIntf::LuaBinding(l).beginClass<NFIEventModule>("NFIEventModule")
+    .addFunction("DoEvent", (bool (NFIEventModule::*)(const NFGUID self, const NFEventDefine nEventID, const NFDataList& valueList))&NFIEventModule::DoEvent)
     .endClass();
 
     return true;
